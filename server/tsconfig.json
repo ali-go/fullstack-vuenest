@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "declaration": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "paths": {
+      "@lib/db": [
+        "libs/db/src"
+      ],
+      "@lib/db/*": [
+        "libs/db/src/*"
+      ],
+      "@app/common": [
+        "libs/common/src"
+      ],
+      "@app/common/*": [
+        "libs/common/src/*"
+      ],
+      "files/files": [
+        "libs/files/src"
+      ],
+      "files/files/*": [
+        "libs/files/src/*"
+      ],
+      "oss/oss": [
+        "libs/oss/src"
+      ],
+      "oss/oss/*": [
+        "libs/oss/src/*"
+      ],
+      "utils/utils": [
+        "libs/utils/src"
+      ],
+      "utils/utils/*": [
+        "libs/utils/src/*"
+      ]
+    }
+  }
+}
