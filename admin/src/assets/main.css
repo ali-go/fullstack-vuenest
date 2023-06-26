@@ -1,0 +1,17 @@
+@import './base.css';
+:root{
+	/* --menu-bg-color:hsl(204, 25%, 60%); */
+	--menu-bg-color:rgb(13, 16, 44);
+	/* --customer-header-bg-color: rgb(126, 126, 185); */
+	--customer-header-bg-color: linear-gradient(to right, rgb(15, 117, 255), rgb(44, 216, 213));
+	
+}
+
+
+.el-date-editor .el-input__wrapper{
+	width: 100%;
+}
+
+li{
+	list-style: none;
+}
