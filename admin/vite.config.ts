@@ -25,5 +25,6 @@ export default defineConfig({
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
-  }
+  },
+	base: './', //改成相对路径，避免生产环境加载静态资源失败空白页
 })

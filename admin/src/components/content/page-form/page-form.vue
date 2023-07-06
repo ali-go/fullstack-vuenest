@@ -26,7 +26,7 @@
 									:disabled="item.disabled">
 									<template v-if="item.listType === 'picture-img'">
 										<div class="upload-img upload-box">
-											<img v-if="formData[item.prop]" :src="formData[item.prop]" class="avatar" />
+											<img v-if="formData[item.prop]" :src="getUrl(formData[item.prop])" class="avatar" />
 											<el-icon v-else class="avatar-uploader-icon">
 												<Plus />
 											</el-icon>
@@ -34,7 +34,7 @@
 									</template>
 									<template v-if="item.listType === 'video'">
 										<div class="upload-video upload-box">
-											<video v-if="formData[item.prop]" :src="formData[item.prop]" controls="controls"></video>
+											<video v-if="formData[item.prop]" :src="getUrl(formData[item.prop])" controls="controls"></video>
 											<el-icon v-else class="avatar-uploader-icon">
 												<Plus />
 											</el-icon>
@@ -53,6 +53,7 @@
 
 <script setup lang="ts">
 import { reactive, type PropType, watch, ref } from 'vue';
+import { getUrl } from '@/utils/utils'
 
 import type { IFormItem } from './types';
 const emit = defineEmits(['update:modelValue', 'uploadChange'])
@@ -102,6 +103,7 @@ const uploadChange = (file: any, fileLists: any, fieldInfo: IFormItem) => {
 }
 
 const handleSuccess = () => { }
+
 </script>
 
 <style lang="less" scoped>
