@@ -9,14 +9,21 @@ import { Comment } from './models/comment.module';
 
 // 使用全局模块的方式暴露数据库模块
 
-const models = TypegooseModule.forFeature([User, Course, Episode, Action, Comment]);
+const models = TypegooseModule.forFeature([
+  User,
+  Course,
+  Episode,
+  Action,
+  Comment,
+]);
 @Global()
 @Module({
   imports: [
     // 这里如果用环境变量，由于异步读取，此处必须异步设置
-    // TypegooseModule.forRoot(process.env.DB),
+    // TypegooseModule.forRoot('mongodb://username:password@ip:port/database?authSource=admin'),
     TypegooseModule.forRootAsync({
-      useFactory() {
+      async useFactory() {
+        console.log('process.env.DB', process.env.DB);
         return {
           uri: process.env.DB,
         };

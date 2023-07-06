@@ -19,11 +19,12 @@ export class FilesController {
   async uploadLocalFile(@UploadedFile('file') file: Express.Multer.File) {
     console.log('file:', file);
 		// 使用multer-aliyun-oss插件云存储
-		return file;
+		// return file;
 		// 本地：
-    // return {
-    //   url: `http://localhost:${process.env.ADMIN_PORT}/uploads/${file.filename}`,
-    // };
+    return {
+      // url: `http://localhost:${process.env.ADMIN_PORT}/uploads/${file.filename}`,
+      url: `uploads/${file.filename}`,
+    };
   }
   // 云服务上传：暂时无效
   @Post('oss/upload')
