@@ -20,7 +20,13 @@ export default {
   css: ['@/assets/normal.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    // 手动设置默认nuxtjs/axios的baseurl和拦截器
+    {
+      src: '~/plugins/axios.js',
+      // mode: 'client', // 设置 这个插件就是在客户端渲染时，才会触发
+    },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -63,7 +69,7 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: '/',
+    baseURL: process.env.NODE_ENV !== 'production' ? process.env.DEV_API_URL : process.env.PROD_API_URL,
   },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
@@ -94,4 +100,9 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {},
+  env: {
+    NODE_ENV: process.env.NODE_ENV,
+    BASE_URL: process.env.NODE_ENV !== 'production' ? process.env.DEV_API_URL : process.env.PROD_API_URL,
+    // PROD_API_URL: process.env.PROD_API_URL,
+  },
 }

@@ -12,7 +12,8 @@
       </v-chip-group> -->
         <!-- </v-card-text> -->
         <!-- 课时：{{ currentEpisode }} -->
-        <video :src="currentEpisode.file" controls width="100%"></video>
+        <!-- <video :src="getUrl(currentEpisode.file)" controls width="100%"></video> -->
+        <video :src="getUrl(currentEpisode.file)" controls width="100%"></video>
         <like-btn type="Course" :object="course._id"></like-btn>
         <h3 class="mb-3">{{ course.name }}</h3>
         <v-select class="ma-5" v-model="currentIndex"
@@ -28,6 +29,8 @@
 <script>
 import likeBtn from "@/components/content/like-btn";
 import commentList from "@/components/content/comment-list";
+
+import { getUrl } from "@/utils/utils";
 export default {
   components: {
     likeBtn,
@@ -55,8 +58,10 @@ export default {
     currentEpisode() {
       return this.course.episodes[this.currentIndex];
     }
+  },
+  methods: {
+    getUrl,
   }
-
 }
 </script>
 

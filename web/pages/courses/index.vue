@@ -4,7 +4,7 @@
       <v-col v-for="course in coursesList" :key="course._id">
         <v-card class="mx-auto" max-width="344">
           <router-link :to="`/courses/${course._id}`">
-            <v-img :src="course.cover" height="200px"></v-img>
+            <v-img :src="getUrl(course.cover)" max-width="250px"></v-img>
           </router-link>
           <v-card-title>{{ course.name }} </v-card-title>
           <v-card-subtitle> 1,000 miles of wonder </v-card-subtitle>
@@ -19,13 +19,15 @@
 
 <script>
 import likeBtn from "@/components/content/like-btn";
+
+import { getUrl } from "@/utils/utils";
+
 export default {
   components: {
     likeBtn
   },
   async asyncData({ $axios }) {
     const res = await $axios.$get('/courses')
-    // console.log(res)
     return {
       coursesList: res.data
     }
@@ -33,7 +35,9 @@ export default {
   data() {
     return {}
   },
-  methods: {}
+  methods: {
+    getUrl,
+  }
 }
 </script>
 
