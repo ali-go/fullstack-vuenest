@@ -30,4 +30,43 @@ NodeJs+Vue3Js+TS全栈开发视频网站
 - nest内部会根据里面的依赖关系去node_modules文件夹使用依赖；
 
 **nuxtjs的部署：**
-- nuxjs的ssr项目同样不能直接部署，需要把打包后的.nuxt和package.json文件同步拷贝到服务器，然后用pm2部署。
+nuxjs的ssr项目我们采用如下方式部署
+1. 把所有文件(其实这些就够了`.nuxt+static+nuxt.config.js+package.json+package-lock.json`)拷贝到服务器（可以在服务器yarn install安装node_modules）；
+2. 用pm2启动nuxt项目，默认会跑在3000端口；
+
+```cmd
+# 1.打包
+npm run build
+# 2.启动
+# 经测试window系统该方式会一直报错
+pm2 start npm --name "your app name" -- run start
+# 3.如果2失败，则可选择用下面方式启动
+pm2 start ./node_modules/nuxt/bin/nuxt.js
+```
+1. 启动后的服务，默认运行在 localhost:3000，但这样外网是访问不到的，所以需要使用 nginx 进行代理；
+```cmd
+# etc/nginx.conf文件中指定端口（此处8000可自行定义，只要不被冲突占用），转发给3000端口；
+server {
+    listen       8000;
+    server_name  localhost;
+
+    location / {
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_set_header Host $host;
+        proxy_set_header X-Nginx-Proxy true;
+        proxy_cache_bypass $http_upgrade;
+        proxy_pass http://localhost:3000/;
+    }
+}
+```
+1. 重启nginx，重启后，访问 IP:8000 即可看到你的页面。将 IP 替换为你的服务器地址。
+```cmd
+systemctl restart nginx
+```
+由于我们使用了.env环境变量，因此也需要拷贝进服务器（看起来好像完全可以不需要用到环境变量啊。。。）
+
+参考文章地址：
+- https://juejin.cn/post/7218756461538279483
+- https://www.jianshu.com/p/b47791999072
